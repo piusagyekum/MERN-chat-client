@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.floating-input {
+  @apply absolute inset-0 px-2 bg-transparent;
+}
+
+.floating-label {
+  @apply absolute capitalize top-1/2 left-2 -translate-y-1/2 bg-white px-2 transition-all;
+}
+
+.floating-input:focus + label,
+.floating-input:not(:empty) + label {
+  @apply top-0 text-sm
+}
+
