@@ -13,15 +13,15 @@
 }
 
 .floating-input {
-  @apply absolute inset-0 px-2 bg-transparent;
+  @apply absolute inset-0 px-2 bg-transparent placeholder:text-transparent;
 }
 
 .floating-label {
-  @apply absolute capitalize top-1/2 left-2 -translate-y-1/2 bg-white px-2 transition-all;
+  @apply absolute capitalize top-1/2 left-2 -translate-y-1/2 bg-white px-2 transition-all ;
 }
 
 .floating-input:focus + label,
-.floating-input:not(:empty) + label {
+.floating-input:not(:placeholder-shown) + label {
   @apply top-0 text-sm
 }
 

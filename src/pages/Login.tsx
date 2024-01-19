@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import http from "../util/axios"
+import { loginUser } from "../features/authFeature"
+import { useDispatch } from "react-redux"
 
 type Payload = {
   username: string
@@ -15,16 +17,21 @@ const Login = () => {
     handleSubmit,
   } = useForm<Payload>()
 
-  const submit: SubmitHandler<Payload> = async (payload) => {
-    try {
-      setLoading(true)
-      const res = await http.post("/user/login", payload)
+  const dispatch = useDispatch()
 
-      if (res.data.code === "000") {
-        //login user via redux and route
-      } else {
-        setHttpError(res.data.message)
-      }
+  const submit: SubmitHandler<Payload> = async (payload) => {
+    console.log("🚀  payload:", payload)
+    dispatch(loginUser())
+    
+    try {
+      // setLoading(true)
+      // const res = await http.post("/user/login", payload)
+
+      // if (res.data.code === "000") {
+      //   //login user via redux and route
+      // } else {
+      //   setHttpError(res.data.message)
+      // }
     } catch (error: Error) {
       setHttpError(error.response.data.message || error.message)
     } finally {
@@ -46,6 +53,7 @@ const Login = () => {
                   type="text"
                   id="username"
                   className="floating-input"
+                  placeholder="Enter username"
                   {...register("username", {
                     required: `username is required`,
                   })}
@@ -64,15 +72,13 @@ const Login = () => {
                 <input
                   type="text"
                   id="password"
-                  className="peer absolute inset-0 px-2  bg-transparent"
+                  className="floating-input"
+                  placeholder="Enter password"
                   {...register("password", {
                     required: `password is required`,
                   })}
                 />
-                <label
-                  htmlFor={"password"}
-                  className="absolute capitalize top-1/2 left-2 -translate-y-1/2 peer-focus:top-0 peer-focus:text-sm bg-white px-2 transition-all"
-                >
+                <label htmlFor={"password"} className="floating-label">
                   password
                 </label>
               </div>
